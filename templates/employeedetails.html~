@@ -1,4 +1,64 @@
 <html>
+  <head>
+    <!--Load the AJAX API-->
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+
+      // Load the Visualization API and the corechart package.
+      google.charts.load('current', {'packages':['corechart']});
+
+      // Set a callback to run when the Google Visualization API is loaded.
+      google.charts.setOnLoadCallback(drawChart);
+      
+      function drawChart() {
+
+        // Create the data table.
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Belt');
+        data.addColumn('number', 'Number of Employees');
+		var table=document.getElementById('EmployeeDetails');
+		var completed = [0,0,0,0,0];
+		for(r=0, n=table.rows.length; r<n; r++)
+		{
+			switch(table.rows[r].cells[3].innerHTML)
+			{
+				case 'Black':
+					completed[0]++;
+					break;
+				case 'Brown':
+					completed[1]++;
+					break;
+				case 'Green':
+					completed[2]++;
+					break;
+				case 'White':
+					completed[3]++;
+					break;
+				case 'None':
+					completed[4]++;
+					break;				
+			}
+		}
+        data.addRows([
+          ['Black', completed[0]],
+          ['Brown', completed[1]],
+          ['Green', completed[2]],
+          ['White', completed[3]],
+          ['None', completed[4]]
+        ]);
+
+        // Set chart options
+        var options = {'title':'Employee Security Course Completion Status',
+                       'width':400,
+                       'height':300,
+						colors:['black','brown','green','yellow','grey']};
+
+        // Instantiate and draw our chart, passing in some options.
+        var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
+      }
+    </script>
+  </head>
 	<body>
 		<table>
 			<tr><td>Employee Name</td><td>{{ employee.employeeName }}</td></tr>
@@ -6,8 +66,8 @@
 			<tr><td>Level</td><td>{{ employee.level }}</td></tr>
 			<tr><td>Belt</td><td>{{ employee.belt }}</td></tr>
 		</table>
-		{% if employeesLevelAbove %}
-			<table>
+		{% if employeeLevelAbove %}
+			<table id = "EmployeeDetails">
 				<tr><th>Employee Name</th><th>Employee Id</th><th>Level</th><th>Belt</th></tr>
 				{% for emp in employeeLevelAbove %}
 					{% if emp.level == levelAbove %}
@@ -20,5 +80,8 @@
 		{% else %}
 			No juniors.
 		{% endif %}
+
+<!--Div that will hold the pie chart-->
+    <div id="chart_div"></div>
 	</body>
 </html>
