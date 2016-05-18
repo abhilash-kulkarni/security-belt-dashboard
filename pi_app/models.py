@@ -11,6 +11,6 @@ class Employee(models.Model):
 	employeeId = models.CharField(max_length = 6, unique = True)
 	employeeName = models.CharField(max_length = 50)
 	level = models.IntegerField(default = 1)
-	belt = models.ForeignKey(Belt)
+	belt = models.ForeignKey(Belt, null = True, blank = True)
 	def __unicode__(self):
 		return u'%s %s %s' % (self.employeeId, self.employeeName, self.level)

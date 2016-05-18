@@ -1,0 +1,24 @@
+<html>
+	<body>
+		<table>
+			<tr><td>Employee Name</td><td>{{ employee.employeeName }}</td></tr>
+			<tr><td>Employee Id</td><td>{{ employee.employeeId }}</td></tr>
+			<tr><td>Level</td><td>{{ employee.level }}</td></tr>
+			<tr><td>Belt</td><td>{{ employee.belt }}</td></tr>
+		</table>
+		{% if employeeLevelAbove %}
+			<table>
+				<tr><th>Employee Name</th><th>Employee Id</th><th>Level</th><th>Belt</th></tr>
+				{% for emp in employeeLevelAbove %}
+					{% if emp.level == levelAbove %}
+						<tr><td><a href="/employeedetails/id={{ emp.employeeId }}/">{{ emp.employeeName }}</a></td><td>{{ emp.employeeId }}</td><td>{{ emp.level }}</td><td>{{ emp.belt }}</td></tr>
+					{% else %}
+						<tr><td>{{ emp.employeeName }}</td><td>{{ emp.employeeId }}</td><td>{{ emp.level }}</td><td>{{ emp.belt }}</td></tr>
+					{% endif %}
+				{% endfor %}
+			</table>
+		{% else %}
+			No juniors.
+		{% endif %}
+	</body>
+</html>

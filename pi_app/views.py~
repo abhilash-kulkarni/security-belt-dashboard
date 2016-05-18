@@ -17,7 +17,7 @@ def employeedetails(request, q):
 	else:
 		try:
 			employee = Employee.objects.get(employeeId = q)
-			employeeLevelAbove = Employee.objects.filter(level__gt = employee.level).order_by('level')
+			employeeLevelAbove = Employee.objects.filter(level__gt = employee.level)
 			levelAbove = employee.level + 1
 			return render(request, 'employeedetails.html', {'employee': employee, 'employeeLevelAbove': employeeLevelAbove, 'levelAbove': levelAbove})
 		except ObjectDoesNotExist:

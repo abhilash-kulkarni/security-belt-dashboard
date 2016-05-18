@@ -1,0 +1,10 @@
+<html>
+	<body>
+		<form method="post">
+			{% csrf_token %}
+			<input type="text" name="employeeid" />
+			<input type="hidden" name="query" value="employeeid"/>
+			<button type="submit">Submit</button>
+		</form>
+	</body>
+</html>
